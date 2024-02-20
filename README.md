@@ -1,23 +1,26 @@
 # Comfyui TaiYi
-TaiYiXLCheckpointLoader: An unoffical node support Taiyi-Diffusion-XL(Taiyi-XL) Chinese-English bilingual language model
+TaiYiXLCheckpointLoader: An unoffical node support Taiyi-Diffusion-XL(Taiyi-XL) Chinese-English bilingual language text-to-image model
 一个自制的 [Taiyi-Diffusion-XL](https://huggingface.co/IDEA-CCNL/Taiyi-Stable-Diffusion-XL-3.5B) 模型加载节点
 
 ## Install
-- Download [Taiyi-Stable-Diffusion-XL-3.5B](https://huggingface.co/IDEA-CCNL/Taiyi-Stable-Diffusion-XL-3.5B/resolve/main/taiyi_diffusion_xl.safetensors) model to `/ComfyUI/models/checkpoints` folder
+- Download [Taiyi-Diffusion-XL-3.5B](https://huggingface.co/IDEA-CCNL/Taiyi-Stable-Diffusion-XL-3.5B/resolve/main/taiyi_diffusion_xl.safetensors) model to `/ComfyUI/models/checkpoints` folder
 - Navigate to `/ComfyUI/custom_nodes/` folder 
 - Run \
 `git clone https://github.com/Layer-norm/ComfyUI-TaiYi.git` 
 - Restart ComfyUI
 
 ## 安装
-- 把 [Taiyi-Stable-Diffusion-XL-3.5B](https://huggingface.co/IDEA-CCNL/Taiyi-Stable-Diffusion-XL-3.5B/resolve/main/taiyi_diffusion_xl.safetensors) 模型下载到 `/ComfyUI/models/checkpoints` 文件夹
+- 把 [Taiyi-Diffusion-XL-3.5B](https://huggingface.co/IDEA-CCNL/Taiyi-Stable-Diffusion-XL-3.5B/resolve/main/taiyi_diffusion_xl.safetensors) 模型下载到 `/ComfyUI/models/checkpoints` 文件夹
 - 进入 `/ComfyUI/custom_nodes/`文件夹
 - 终端运行 \
- `git clone https://github.com/Layer-norm/ComfyUI-Taiyi.git`
+ `git clone https://github.com/Layer-norm/ComfyUI-TaiYi.git`
 - 重启 ComfyUI
 
 ## Examples（示例）
-![taiyixl](example\taiyixl.png)
+<p align="center">
+    <img src="example\purplebottle.png" width="800">
+    <img src="example\whitecat.png" width="800">
+</p>
 
 ## Matters needing attention（注意事项）
 Because the original model was mainly tested on Fooocus, the performance on comfyui may differ from the original results.
