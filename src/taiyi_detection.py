@@ -12,14 +12,14 @@ def taiyi_model_config_from_unet_config(unet_config):
 
 
 
-def model_config_from_unet(state_dict, unet_key_prefix, dtype, use_base_if_no_match=False):
-    unet_config = detect_unet_config(state_dict, unet_key_prefix, dtype)
+def model_config_from_unet(state_dict, unet_key_prefix, use_base_if_no_match=False):
+    unet_config = detect_unet_config(state_dict, unet_key_prefix)
     model_config = taiyi_model_config_from_unet_config(unet_config)
 
     return model_config
 
 
-def taiyi_unet_config_from_diffusers_unet(state_dict, dtype):
+def taiyi_unet_config_from_diffusers_unet(state_dict, dtype=None):
     match = {}
     transformer_depth = []
 
@@ -66,8 +66,8 @@ def taiyi_unet_config_from_diffusers_unet(state_dict, dtype):
             return convert_config(unet_config)
     return None
 
-def model_config_from_diffusers_unet(state_dict, dtype):
-    unet_config = taiyi_unet_config_from_diffusers_unet(state_dict, dtype)
+def model_config_from_diffusers_unet(state_dict):
+    unet_config = taiyi_unet_config_from_diffusers_unet(state_dict)
     if unet_config is not None:
         return taiyi_model_config_from_unet_config(unet_config)
     return None

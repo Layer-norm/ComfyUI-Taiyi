@@ -26,9 +26,6 @@ def load_model_weights(model, sd):
         print("missing", m)
     return model
 
-# class TaiYiCLIP(CLIP):
-
-
 def taiyi_load_checkpoint_guess_config(ckpt_path, output_vae=True, output_clip=True, output_clipvision=False, embedding_directory=None, output_model=True):
     sd = utils.load_torch_file(ckpt_path)
     sd_keys = sd.keys()
@@ -40,15 +37,15 @@ def taiyi_load_checkpoint_guess_config(ckpt_path, output_vae=True, output_clip=T
     clip_target = None
 
     parameters = utils.calculate_parameters(sd, "model.diffusion_model.")
-    unet_dtype = model_management.unet_dtype(model_params=parameters)
     load_device = model_management.get_torch_device()
-    manual_cast_dtype = model_management.unet_manual_cast(unet_dtype, load_device)
 
     class WeightsLoader(torch.nn.Module):
         pass
 
-    model_config = taiyi_detection.model_config_from_unet(sd, "model.diffusion_model.", unet_dtype)
-    model_config.set_manual_cast(manual_cast_dtype)
+    model_config = taiyi_detection.model_config_from_unet(sd, "model.diffusion_model.")
+    unet_dtype = model_management.unet_dtype(model_params=parameters, supported_dtypes=model_config.supported_inference_dtypes)
+    manual_cast_dtype = model_management.unet_manual_cast(unet_dtype, load_device, model_config.supported_inference_dtypes)
+    model_config.set_inference_dtype(unet_dtype, manual_cast_dtype)
 
     if model_config is None:
         raise RuntimeError("ERROR: Could not detect model type of: {}".format(ckpt_path))
