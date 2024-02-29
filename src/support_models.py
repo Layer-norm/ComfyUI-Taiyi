@@ -37,14 +37,12 @@ class TaiYiXL(supported_models_base.BASE):
         keys_to_replace = {}
         replace_prefix = {}
 
-        replace_prefix["conditioner.embedders.0.transformer.text_model"] = "cond_stage_model.clip_l.transformer.text_model"
-        state_dict = utils.transformers_convert(state_dict, "conditioner.embedders.1.model.", "cond_stage_model.clip_g.transformer.text_model.", 32)
-        keys_to_replace["conditioner.embedders.1.model.text_projection"] = "cond_stage_model.clip_g.text_projection"
-        keys_to_replace["conditioner.embedders.1.model.text_projection.weight"] = "cond_stage_model.clip_g.text_projection"
-        keys_to_replace["conditioner.embedders.1.model.logit_scale"] = "cond_stage_model.clip_g.logit_scale"
+        replace_prefix["conditioner.embedders.0.transformer.text_model"] = "clip_l.transformer.text_model"
+        replace_prefix["conditioner.embedders.1.model."] = "clip_g."
+        state_dict = utils.state_dict_prefix_replace(state_dict, replace_prefix, filter_keys=True)
 
-        state_dict = utils.state_dict_prefix_replace(state_dict, replace_prefix)
         state_dict = utils.state_dict_key_replace(state_dict, keys_to_replace)
+        state_dict = utils.clip_text_transformers_convert(state_dict, "clip_g.", "clip_g.transformer.")
         return state_dict
 
     def process_clip_state_dict_for_saving(self, state_dict):

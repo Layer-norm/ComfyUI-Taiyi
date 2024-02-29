@@ -39,10 +39,7 @@ def taiyi_load_checkpoint_guess_config(ckpt_path, output_vae=True, output_clip=T
     parameters = utils.calculate_parameters(sd, "model.diffusion_model.")
     load_device = model_management.get_torch_device()
 
-    class WeightsLoader(torch.nn.Module):
-        pass
-
-    model_config = taiyi_detection.model_config_from_unet(sd, "model.diffusion_model.")
+    model_config = taiyi_detection.model_config_from_unet(sd, "model.diffusion_model.")    
     unet_dtype = model_management.unet_dtype(model_params=parameters, supported_dtypes=model_config.supported_inference_dtypes)
     manual_cast_dtype = model_management.unet_manual_cast(unet_dtype, load_device, model_config.supported_inference_dtypes)
     model_config.set_inference_dtype(unet_dtype, manual_cast_dtype)
@@ -61,18 +58,24 @@ def taiyi_load_checkpoint_guess_config(ckpt_path, output_vae=True, output_clip=T
         model.load_model_weights(sd, "model.diffusion_model.")
 
     if output_vae:
-        vae_sd = utils.state_dict_prefix_replace(sd, {"first_stage_model.": ""}, filter_keys=True)
+        vae_sd = utils.state_dict_prefix_replace(sd, {k: "" for k in model_config.vae_key_prefix}, filter_keys=True)
         vae_sd = model_config.process_vae_state_dict(vae_sd)
         vae = VAE(sd=vae_sd)
 
     if output_clip:
-        w = WeightsLoader()
         clip_target = model_config.clip_target()
         if clip_target is not None:
-            clip = CLIP(clip_target, embedding_directory=embedding_directory)
-            w.cond_stage_model = clip.cond_stage_model
-            sd = model_config.process_clip_state_dict(sd)
-            load_model_weights(w, sd)
+            clip_sd = model_config.process_clip_state_dict(sd)
+            if len(clip_sd) > 0:
+                clip = CLIP(clip_target, embedding_directory=embedding_directory)
+                m, u = clip.load_sd(clip_sd, full_model=True)
+                if len(m) > 0:
+                    print("clip missing:", m)
+
+                if len(u) > 0:
+                    print("clip unexpected:", u)
+            else:
+                print("no CLIP/text encoder weights in checkpoint, the text encoder model will not be loaded.")
 
     left_over = sd.keys()
     if len(left_over) > 0:
