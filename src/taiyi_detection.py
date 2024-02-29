@@ -27,6 +27,7 @@ def taiyi_unet_config_from_diffusers_unet(state_dict, dtype=None):
     down_blocks = count_blocks(state_dict, "down_blocks.{}")
     for i in range(down_blocks):
         attn_blocks = count_blocks(state_dict, "down_blocks.{}.attentions.".format(i) + '{}')
+        res_blocks = count_blocks(state_dict, "down_blocks.{}.resnets.".format(i) + '{}')
         for ab in range(attn_blocks):
             transformer_count = count_blocks(state_dict, "down_blocks.{}.attentions.{}.transformer_blocks.".format(i, ab) + '{}')
             transformer_depth.append(transformer_count)
@@ -35,8 +36,8 @@ def taiyi_unet_config_from_diffusers_unet(state_dict, dtype=None):
 
         attn_res *= 2
         if attn_blocks == 0:
-            transformer_depth.append(0)
-            transformer_depth.append(0)
+            for i in range(res_blocks):
+                transformer_depth.append(0)
 
     match["transformer_depth"] = transformer_depth
 

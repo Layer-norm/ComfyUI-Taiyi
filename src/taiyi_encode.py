@@ -63,13 +63,13 @@ class TaiYiXLClipModel(torch.nn.Module):
         self.clip_l = TaiYiXLClip(device=device, dtype=dtype)
         self.clip_g = TaiYiXLClipG(device=device, dtype=dtype)
 
-    def clip_layer(self, layer_idx):
-        self.clip_l.clip_layer(layer_idx)
-        self.clip_g.clip_layer(layer_idx)
+    def set_clip_options(self, options):
+        self.clip_l.set_clip_options(options)
+        self.clip_g.set_clip_options(options)
 
-    def reset_clip_layer(self):
-        self.clip_g.reset_clip_layer()
-        self.clip_l.reset_clip_layer()
+    def reset_clip_options(self):
+        self.clip_g.reset_clip_options()
+        self.clip_l.reset_clip_options()
 
     def encode_token_weights(self, token_weight_pairs):
         token_weight_pairs_g = token_weight_pairs["g"]
