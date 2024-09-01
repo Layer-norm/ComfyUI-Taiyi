@@ -1,6 +1,6 @@
 # Comfyui TaiYi
 TaiYiXLCheckpointLoader: An unoffical node support Taiyi-Diffusion-XL(Taiyi-XL) Chinese-English bilingual language text-to-image model
-一个自制的 [Taiyi-Diffusion-XL](https://huggingface.co/IDEA-CCNL/Taiyi-Stable-Diffusion-XL-3.5B) 模型加载节点
+一个简易的 [Taiyi-Diffusion-XL](https://huggingface.co/IDEA-CCNL/Taiyi-Stable-Diffusion-XL-3.5B) 模型加载节点
 
 ## Install
 - Download [Taiyi-Diffusion-XL-3.5B](https://huggingface.co/IDEA-CCNL/Taiyi-Stable-Diffusion-XL-3.5B/resolve/main/taiyi_diffusion_xl.safetensors) model to `/ComfyUI/models/checkpoints` folder
@@ -25,8 +25,10 @@ TaiYiXLCheckpointLoader: An unoffical node support Taiyi-Diffusion-XL(Taiyi-XL) 
 ## Matters needing attention（注意事项）
 Because the original model was mainly tested on Fooocus, the performance on comfyui may differ from the original results.
 In addition, the effect of Chinese prompts may be slightly inferior to English, and some misunderstandings is acceptable.
+Due to the release time at the start of the year, there is a quality gap compared to recent models, and it cannot understand very complex prompt words.
 因为原模型主要在Fooocus上测试，在comfyui上的表现会与原始结果可能会有差异
 此外中文提示词效果可能会略逊于英文，产生理解偏差是正常现象
+年初的老模型，素质相比最近的模型会有差距，无法理解太过复杂的提示词。
 
 ## Acknowledgments（感谢）
 [ComfyUI](https://github.com/comfyanonymous/ComfyUI.git) The most powerful and modular stable diffusion GUI and backend. 最好用的sd GUI框架 \
