@@ -1,0 +1,15 @@
+[project]
+name = "comfyui-Taiyi"
+description = "Simple checkpoint loader for TaiyiXL"
+version = "1.0.0"
+license = { file = "LICENSE" }
+dependencies = []
+
+[project.urls]
+Repository = "https://github.com/Layer-norm/ComfyUI-Taiyi"
+#  Used by Comfy Registry https://comfyregistry.org
+
+[tool.comfy]
+PublisherId = "layer-norm"
+DisplayName = "comfyui-Taiyi"
+Icon = ""
