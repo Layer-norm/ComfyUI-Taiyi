@@ -1,9 +1,8 @@
 [project]
-name = "comfyui-Taiyi"
+name = "comfyui-taiyi"
 description = "Simple checkpoint loader for TaiyiXL"
 version = "1.0.0"
-license = { file = "LICENSE" }
-dependencies = []
+license = {file = "LICENSE"}
 
 [project.urls]
 Repository = "https://github.com/Layer-norm/ComfyUI-Taiyi"
@@ -11,5 +10,5 @@ Repository = "https://github.com/Layer-norm/ComfyUI-Taiyi"
 
 [tool.comfy]
 PublisherId = "layer-norm"
-DisplayName = "comfyui-Taiyi"
+DisplayName = "ComfyUI-Taiyi"
 Icon = ""
