@@ -1,0 +1,5 @@
+{
+    "HF_ENDPOINT" : "https://huggingface.co",
+    "TaiyiXL_link" : "{HF_ENDPOINT}/IDEA-CCNL/Taiyi-Stable-Diffusion-XL-3.5B/resolve/main/taiyi_diffusion_xl.safetensors",
+    "SHA256": "91a21288e7b00469be03611699f7217d342993b7c16f88eff9394aa807fff868"
+}
